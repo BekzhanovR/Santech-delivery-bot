@@ -1,10 +1,10 @@
-import logging
 from aiogram import Dispatcher
-from data.config import ADMINS
+from utils.env_tools import get_admin_ids
+import logging
 
 async def on_startup_notify(dp: Dispatcher):
-    for admin_id in ADMINS:
-        try:
-            await dp.bot.send_message(admin_id, "✅ Bot muvaffaqiyatli ishga tushdi!")
-        except Exception as err:
-            logging.exception(f"❌ Adminga habar yuborishda xatolik: {admin_id} — {err}")
+    try:
+        for admin_id in get_admin_ids():
+            await dp.bot.send_message(admin_id, "✅ Bot ishga tushdi!")
+    except Exception as err:
+        logging.exception(err)

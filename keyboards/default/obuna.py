@@ -5,7 +5,7 @@ obuna_menu = ReplyKeyboardMarkup(
         [KeyboardButton("👁 POST MATN KO‘RISH")],
         [
             KeyboardButton("✏️ POST YOZISH"),
-            KeyboardButton("🟢 POST YOZISH")
+            KeyboardButton("💸 OBUNA NARXI")
         ],
         [KeyboardButton("⛔ POST o‘chirish")],
         [KeyboardButton("⬅️ Orqaga qaytish")]

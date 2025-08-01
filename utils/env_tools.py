@@ -19,3 +19,15 @@ def append_admin_id_to_env(new_id: int) -> bool:
         return True
     except:
         return False
+    
+def get_admin_ids() -> list:
+    try:
+        with open(".env", "r", encoding="utf-8") as f:
+            lines = f.readlines()
+        for line in lines:
+            if line.startswith("ADMINS="):
+                ids = line.strip().split("=")[1]
+                return list(map(int, ids.split(",")))
+        return []
+    except:
+        return []

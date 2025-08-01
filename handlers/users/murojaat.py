@@ -1,10 +1,10 @@
 from aiogram import types
 from aiogram.dispatcher import FSMContext
 from loader import dp, bot
-from data.config import ADMINS
 from states.murojaat import MurojaatState
 from keyboards.default.murojaat import murojaat_confirm_menu
 from keyboards.default.user import user_menu
+from utils.env_tools import get_admin_ids  # ✅ .env dan adminlarni olish
 
 @dp.message_handler(text="💻 ADMIN ga murojaat qilish")
 async def ask_question(message: types.Message):
@@ -22,11 +22,14 @@ async def send_to_admin(message: types.Message, state: FSMContext):
     data = await state.get_data()
     text = data.get("text")
 
-    for admin_id in ADMINS:
+    for admin_id in get_admin_ids():  # ✅ Dinamik o‘qiladi
         try:
             await bot.send_message(
                 admin_id,
-                f"📩 <b>Yangi murojaat</b>\n\n<b>Foydalanuvchi:</b> {message.from_user.full_name} (@{message.from_user.username})\n<b>ID:</b> {message.from_user.id}\n\n📝 {text}",
+                f"📩 <b>Yangi murojaat</b>\n\n"
+                f"<b>Foydalanuvchi:</b> {message.from_user.full_name} (@{message.from_user.username})\n"
+                f"<b>ID:</b> {message.from_user.id}\n\n"
+                f"📝 {text}",
                 parse_mode="HTML"
             )
         except:
